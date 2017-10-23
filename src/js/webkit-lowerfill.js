@@ -49,8 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
         sheet.insertRule([selector, styles].join(''));
     }
 
-    // Setup all inputs
-    Array.from(document.querySelectorAll('input[type="range"]')).forEach(range => {
+    // Build a single input
+    function build(range) {
+        if (typeof range.set === 'function') {
+            return;
+        }
+
         const { id } = range;
 
         // Generate an ID if needed
@@ -74,5 +78,35 @@ document.addEventListener('DOMContentLoaded', () => {
                 update.call(this);
             },
         });
+    }
+
+    // Setup all inputs
+    function setup(target) {
+        let container = target === null || typeof target === 'undefined' ? document.body : target;
+        const selector = 'input[type="range"]';
+
+        if (container.matches(selector)) {
+            container = container.parentNode;
+        }
+
+        Array.from(container.querySelectorAll(selector)).forEach(build);
+    }
+
+    // Initialise a new observer
+    const observer = new MutationObserver(mutations => {
+        mutations.forEach(mutation => {
+            mutation.addedNodes.forEach(node => {
+                setup(node);
+            });
+        });
     });
+
+    // Watch for new inputs added
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+    });
+
+    // Setup
+    setup();
 });
