@@ -1,0 +1,8 @@
+{
+    "less": {
+        "styles.css": "bundle.less"
+    },
+    "js": {
+        "webkit-lowerfill.js": ["webkit-lowerfill.js"]
+    }
+}

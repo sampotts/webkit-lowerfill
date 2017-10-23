@@ -1,0 +1,87 @@
+// Range inputs
+// Specificity is for bootstrap compatibility
+input[type='range'] {
+    display: block;
+    height: (@range-thumb-height * @range-thumb-active-scale);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+
+    // Used in JS to populate lower fill for WebKit
+    color: @range-selected-bg;
+
+    // WebKit
+    -webkit-appearance: none;
+
+    &::-webkit-slider-runnable-track {
+        .range-track();
+    }
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        margin-top: -((@range-thumb-height - @range-track-height) / 2);
+        .range-thumb();
+    }
+
+    // Mozilla
+    &::-moz-range-track {
+        .range-track();
+    }
+    &::-moz-range-thumb {
+        .range-thumb();
+    }
+    &::-moz-range-progress {
+        height: @range-track-height;
+        background: currentColor;
+        border-radius: (@range-track-height / 2);
+    }
+
+    // Microsoft
+    &::-ms-track {
+        height: @range-track-height;
+        background: transparent;
+        border: 0;
+        color: transparent;
+    }
+    &::-ms-fill-upper {
+        .range-track();
+    }
+    &::-ms-fill-lower {
+        .range-track();
+        background: currentColor;
+    }
+    &::-ms-thumb {
+        .range-thumb();
+        // For some reason, Edge uses the -webkit margin above
+        margin-top: 0;
+    }
+    &::-ms-tooltip {
+        display: none;
+    }
+
+    // Focus styles
+    &:focus {
+        outline: 0;
+    }
+    &::-moz-focus-outer {
+        border: 0;
+    }
+    &.tab-focus {
+        outline-offset: 3px;
+    }
+
+    // Pressed styles
+    &:active {
+        &::-webkit-slider-thumb {
+            .range-thumb-active();
+        }
+        &::-moz-range-thumb {
+            .range-thumb-active();
+        }
+        &::-ms-thumb {
+            .range-thumb-active();
+        }
+    }
+}

@@ -1,0 +1,24 @@
+// <input type="range"> styling
+.range-track() {
+    height: @range-track-height;
+    background: @range-track-bg;
+    border: 0;
+    border-radius: (@range-track-height / 2);
+    user-select: none;
+}
+.range-thumb() {
+    position: relative;
+    height: @range-thumb-height;
+    width: @range-thumb-width;
+    background: @range-thumb-bg;
+    border: @range-thumb-border;
+    border-radius: 100%;
+    transition: background 0.2s ease, border 0.2s ease, transform 0.2s ease;
+    box-shadow: @range-thumb-shadow;
+    box-sizing: border-box;
+}
+.range-thumb-active() {
+    background: @range-thumb-active-bg;
+    border-color: @range-thumb-active-border-color;
+    transform: scale(@range-thumb-active-scale);
+}
