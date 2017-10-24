@@ -15,6 +15,7 @@ const cleanCSS = require('gulp-clean-css');
 const uglify = require('gulp-uglify');
 const babel = require('gulp-babel');
 const sourcemaps = require('gulp-sourcemaps');
+const rename = require('gulp-rename');
 
 const root = __dirname;
 
@@ -109,6 +110,17 @@ Object.keys(bundles.js).forEach(key => {
             .pipe(
                 babel({
                     presets: ['es2015'],
+                })
+            )
+            .pipe(
+                rename({
+                    suffix: '.es5',
+                })
+            )
+            .pipe(gulp.dest(paths.dist))
+            .pipe(
+                rename({
+                    suffix: '.min',
                 })
             )
             .pipe(
