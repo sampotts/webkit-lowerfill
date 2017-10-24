@@ -26,6 +26,7 @@ const paths = {
         js: path.join(root, 'src/js'),
     },
     dist: path.join(root, 'dist'),
+    docs: path.join(root, 'docs'),
 };
 
 // Task names
@@ -86,7 +87,7 @@ Object.keys(bundles.less).forEach(key => {
                     },
                 })
             )
-            .pipe(gulp.dest(paths.dist))
+            .pipe(gulp.dest(paths.docs))
     );
 });
 
@@ -129,7 +130,8 @@ Object.keys(bundles.js).forEach(key => {
                 })
             )
             .pipe(sourcemaps.write('.'))
-            .pipe(gulp.dest(paths.dist));
+            .pipe(gulp.dest(paths.dist))
+            .pipe(gulp.dest(paths.docs));
     });
 });
 
