@@ -1,56 +1,55 @@
 // Range inputs
 // Specificity is for bootstrap compatibility
 input[type='range'] {
-    display: block;
-    height: (@range-thumb-height * @range-thumb-active-scale);
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    cursor: pointer;
-    border: none;
+    // WebKit
+    -webkit-appearance: none; // stylelint-disable-line
     background: transparent;
+    border: 0;
 
     // Used in JS to populate lower fill for WebKit
-    color: @range-selected-bg;
-
-    // WebKit
-    -webkit-appearance: none;
+    color: $range-fill-bg;
+    display: block;
+    height: $range-max-height;
+    margin: 0;
+    padding: 0;
+    width: 100%;
 
     &::-webkit-slider-runnable-track {
-        .range-track();
+        @include range-track();
+        background-image: linear-gradient(to right, currentColor var(--value), transparent var(--value));
     }
     &::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        margin-top: -((@range-thumb-height - @range-track-height) / 2);
-        .range-thumb();
+        @include range-thumb();
+        -webkit-appearance: none; // stylelint-disable-line
+        margin-top: -(($range-thumb-height - $range-track-height) / 2);
     }
 
     // Mozilla
     &::-moz-range-track {
-        .range-track();
+        @include range-track();
     }
     &::-moz-range-thumb {
-        .range-thumb();
+        @include range-thumb();
     }
     &::-moz-range-progress {
-        height: @range-track-height;
         background: currentColor;
-        border-radius: (@range-track-height / 2);
+        border-radius: ($range-track-height / 2);
+        height: $range-track-height;
     }
 
     // Microsoft
     &::-ms-track {
-        height: @range-track-height;
         background: transparent;
         border: 0;
         color: transparent;
+        height: $range-track-height;
     }
     &::-ms-fill-upper,
     &::-ms-fill-lower {
-        .range-track();
+        @include range-track();
     }
     &::-ms-thumb {
-        .range-thumb();
+        @include range-thumb();
         // For some reason, Edge uses the -webkit margin above
         margin-top: 0;
     }
@@ -75,13 +74,13 @@ input[type='range'] {
     // Pressed styles
     &:active {
         &::-webkit-slider-thumb {
-            .range-thumb-active();
+            @include range-thumb-active();
         }
         &::-moz-range-thumb {
-            .range-thumb-active();
+            @include range-thumb-active();
         }
         &::-ms-thumb {
-            .range-thumb-active();
+            @include range-thumb-active();
         }
     }
 }

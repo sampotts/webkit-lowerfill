@@ -1,0 +1,22 @@
+// ==========================================================================
+// Settings
+// ==========================================================================
+
+// Colors
+$color-gunmetal: #343f4a !default;
+
+// Active state
+$range-thumb-active-shadow-width: 3px !default;
+
+// Thumb
+$range-thumb-height: 14px !default;
+$range-thumb-bg: #fff !default;
+$range-thumb-border: 2px solid transparent !default;
+$range-thumb-shadow: 0 1px 1px rgba($color-gunmetal, 0.15), 0 0 0 1px rgba($color-gunmetal, 0.2) !default;
+
+// Track
+$range-track-height: 6px !default;
+$range-max-height: ($range-thumb-active-shadow-width * 2) + $range-thumb-height !default;
+
+// Fill
+$range-fill-bg: #30d565 !default;

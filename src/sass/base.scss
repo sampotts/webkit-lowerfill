@@ -5,15 +5,17 @@
 }
 
 html {
-    display: flex;
     align-items: center;
+    display: flex;
     height: 100%;
 }
 
 body {
-    width: 100%;
-    max-width: 480px;
+    background: $color-gunmetal;
     margin: auto;
+    max-width: 480px;
+    padding: 20px;
+    width: 100%;
 }
 
 input[type='range'] {

@@ -1,0 +1,24 @@
+@mixin range-track() {
+    background-color: rgba(#fff, 0.1);
+    border: 0;
+    border-radius: ($range-track-height / 2);
+    height: $range-track-height;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+@mixin range-thumb() {
+    background: $range-thumb-bg;
+    border: 0;
+    border-radius: 100%;
+    box-shadow: $range-thumb-shadow;
+    box-sizing: border-box;
+    height: $range-thumb-height;
+    position: relative;
+    transition: all 0.2s ease;
+    width: $range-thumb-height;
+}
+
+@mixin range-thumb-active() {
+    box-shadow: $range-thumb-shadow, 0 0 0 $range-thumb-active-shadow-width rgba($range-thumb-bg, 0.5);
+}

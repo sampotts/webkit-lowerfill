@@ -1,6 +1,6 @@
 {
-    "less": {
-        "styles.css": "bundle.less"
+    "sass": {
+        "styles.css": "bundle.scss"
     },
     "js": {
         "webkit-lowerfill.js": ["webkit-lowerfill.js"]

@@ -1,48 +1,53 @@
 {
-  "name": "webkit-lowerfill",
-  "version": "1.0.0",
-  "description": "A polyfill for lower fill on `<input type='range'>` in webkit",
-  "main": "dist/webkit-lowerfill.js",
-  "dependencies": {
-    "babel-core": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^4.0.0",
-    "gulp-babel": "^7.0.0",
-    "gulp-clean-css": "^3.9.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-js-minify": "0.0.3",
-    "gulp-less": "^3.3.2",
-    "gulp-minify": "^1.0.0",
-    "gulp-plumber": "^1.1.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-sourcemaps": "^2.6.1",
-    "gulp-uglify": "^3.0.0",
-    "path": "^0.12.7",
-    "run-sequence": "^1.2.2"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/sampotts/webkit-lowerfill.git"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/sampotts/webkit-lowerfill/issues"
-  },
-  "directories": {
-    "doc": "readme.md"
-  },
-  "scripts": {
-    "test": "echo 'Error: no test specified' && exit 1"
-  },
-  "author": "Sam Potts <sam@potts.es>",
-  "devDependencies": {
-    "eslint": "^4.9.0",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-config-prettier": "^2.6.0",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-react": "^7.4.0",
-    "gulp-rename": "^1.2.2"
-  }
+    "name": "webkit-lowerfill",
+    "version": "1.0.0",
+    "description": "A polyfill for lower fill on `<input type='range'>` in webkit",
+    "main": "dist/webkit-lowerfill.js",
+    "dependencies": {},
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/sampotts/webkit-lowerfill.git"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/sampotts/webkit-lowerfill/issues"
+    },
+    "directories": {
+        "doc": "readme.md"
+    },
+    "scripts": {
+        "test": "echo 'Error: no test specified' && exit 1"
+    },
+    "author": "Sam Potts <sam@potts.es>",
+    "devDependencies": {
+        "babel-core": "^6.26.0",
+        "babel-eslint": "^8.2.2",
+        "babel-plugin-external-helpers": "^6.22.0",
+        "babel-preset-env": "^1.6.1",
+        "eslint": "^4.19.1",
+        "eslint-config-airbnb-base": "^12.1.0",
+        "eslint-config-prettier": "^2.9.0",
+        "eslint-plugin-import": "^2.10.0",
+        "gulp-rename": "^1.2.2",
+        "gulp": "^3.9.1",
+        "gulp-autoprefixer": "^5.0.0",
+        "gulp-babel": "^7.0.1",
+        "gulp-clean-css": "^3.9.3",
+        "gulp-concat": "^2.6.1",
+        "gulp-js-minify": "0.0.3",
+        "gulp-minify": "^2.1.0",
+        "gulp-plumber": "^1.2.0",
+        "gulp-sass": "^3.2.1",
+        "gulp-sourcemaps": "^2.6.4",
+        "gulp-uglify": "^3.0.0",
+        "path": "^0.12.7",
+        "run-sequence": "^2.2.1",
+        "stylelint": "^9.2.0",
+        "stylelint-config-prettier": "^3.0.4",
+        "stylelint-config-sass-guidelines": "^5.0.0",
+        "stylelint-config-standard": "^18.2.0",
+        "stylelint-order": "^0.8.1",
+        "stylelint-scss": "^3.0.0",
+        "stylelint-selector-bem-pattern": "^2.0.0"
+    }
 }

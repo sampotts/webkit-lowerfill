@@ -1,5 +1,3 @@
-'use strict';
-
 // ==========================================================================
 // webkit-lowerfill.js
 // A polyfill for lower fill on `<input type='range'>` in webkit
@@ -7,50 +5,26 @@
 // ==========================================================================
 
 document.addEventListener('DOMContentLoaded', function () {
-    // WebKit only
-    if (!('WebkitAppearance' in document.documentElement.style)) {
+    // WebKit only and Array.from needed (modern WebKit)
+    if (!('WebkitAppearance' in document.documentElement.style) || !Array.from) {
         return;
     }
 
-    // Get a random number
-    function generateId() {
-        return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10);
-    }
-
-    // Inject the stylesheet
-    var styleSheet = document.createElement('style');
-    document.head.appendChild(styleSheet);
+    // Events that trigger an update
+    var events = ['input', // Live user input
+    'change', // At end of input
+    'update'];
 
     // Get the value as percentage
     function getPercentage() {
         var max = this.max || 100;
         var min = this.min || 0;
-
         return (this.value - min) / (max - min) * 100;
     }
 
     // Update the fill
     function update() {
-        var range = this;
-        var id = range.getAttribute('id');
-        var sheet = styleSheet.sheet;
-
-        var percentage = getPercentage.call(range);
-        var selector = '#' + id + '::-webkit-slider-runnable-track';
-        var styles = '{ background-image: linear-gradient(to right, currentColor ' + percentage + '%, transparent ' + percentage + '%) }';
-
-        // Find old rule if it exists
-        var ruleIndex = Array.from(sheet.rules).findIndex(function (rule) {
-            return rule.selectorText === selector;
-        });
-
-        // Remove old rule
-        if (ruleIndex !== -1) {
-            sheet.deleteRule(ruleIndex);
-        }
-
-        // Insert new rule
-        sheet.insertRule([selector, styles].join(''));
+        this.style.setProperty('--value', getPercentage.call(this) + '%');
     }
 
     // Build a single input
@@ -59,22 +33,13 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        var id = range.id;
-
-        // Generate an ID if needed
-
-        if (typeof id !== 'string' || !id.length) {
-            range.setAttribute('id', generateId());
-        }
-
         // Update on render
         update.call(range);
 
-        // Listen for user input changes
-        range.addEventListener('input', update, false);
-
-        // List for custom event for programatic updates
-        range.addEventListener('update', update, false);
+        // Listen for events
+        events.forEach(function (type) {
+            range.addEventListener(type, update, false);
+        });
 
         // Helper for setting value programatically
         // Unfortunately watching .value = x is hard
@@ -89,8 +54,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Setup all inputs
-    function setup(target) {
-        var container = target === null || typeof target === 'undefined' ? document.body : target;
+    function setup() {
+        var target = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : document.body;
+
+        var container = target;
         var selector = 'input[type="range"]';
 
         if (!(container instanceof HTMLElement)) {

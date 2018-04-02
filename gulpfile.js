@@ -5,7 +5,7 @@
 /* eslint no-console: "off" */
 
 const gulp = require('gulp');
-const less = require('gulp-less');
+const sass = require('gulp-sass');
 const path = require('path');
 const fs = require('fs');
 const plumber = require('gulp-plumber');
@@ -22,24 +22,21 @@ const root = __dirname;
 // Paths
 const paths = {
     src: {
-        less: path.join(root, 'src/less'),
+        sass: path.join(root, 'src/sass'),
         js: path.join(root, 'src/js'),
     },
     dist: path.join(root, 'dist'),
     docs: path.join(root, 'docs'),
 };
 
-// Task names
-const names = {
-    less: 'less:',
-    js: 'js:',
-};
-
 // List of tasks
 const tasks = {
-    less: [],
+    sass: [],
     js: [],
 };
+
+// Browserlist
+const browsers = ['> 1%'];
 
 // Load json
 function loadJSON(file) {
@@ -58,25 +55,25 @@ function onError(err) {
     throw err;
 }
 
-// Process LESS files
-Object.keys(bundles.less).forEach(key => {
-    const name = names.less + key;
-    tasks.less.push(name);
+// Process SASS files
+Object.keys(bundles.sass).forEach(key => {
+    const name = `sass:${key}`;
+    tasks.sass.push(name);
 
     gulp.task(name, () =>
         gulp
-            .src(path.join(paths.src.less, bundles.less[key]))
+            .src(path.join(paths.src.sass, bundles.sass[key]))
             .pipe(
                 plumber({
                     errorHandler: onError,
-                })
+                }),
             )
-            .pipe(less())
+            .pipe(sass())
             .pipe(concat(key))
             .pipe(
                 autoprefixer({
                     cascade: false,
-                })
+                }),
             )
             .pipe(
                 cleanCSS({
@@ -85,15 +82,15 @@ Object.keys(bundles.less).forEach(key => {
                             specialComments: false,
                         },
                     },
-                })
+                }),
             )
-            .pipe(gulp.dest(paths.docs))
+            .pipe(gulp.dest(paths.docs)),
     );
 });
 
 // Process JavaScript files
 Object.keys(bundles.js).forEach(key => {
-    const name = names.js + key;
+    const name = `js:${key}`;
     tasks.js.push(name);
 
     gulp.task(name, () => {
@@ -104,30 +101,41 @@ Object.keys(bundles.js).forEach(key => {
             .pipe(
                 plumber({
                     errorHandler: onError,
-                })
+                }),
             )
             .pipe(sourcemaps.init())
             .pipe(concat(key))
             .pipe(
                 babel({
-                    presets: ['es2015'],
-                })
+                    presets: [[
+                        'env',
+                        {
+                            targets: {
+                                browsers,
+                            },
+                            useBuiltIns: true,
+                            modules: false,
+                        },
+                    ]],
+                    plugins: ['external-helpers'],
+                    babelrc: false,
+                }),
             )
             .pipe(
                 rename({
                     suffix: '.es5',
-                })
+                }),
             )
             .pipe(gulp.dest(paths.dist))
             .pipe(
                 rename({
                     suffix: '.min',
-                })
+                }),
             )
             .pipe(
                 uglify({ compress: true }).on('error', e => {
                     console.log(e);
-                })
+                }),
             )
             .pipe(sourcemaps.write('.'))
             .pipe(gulp.dest(paths.dist))
@@ -141,7 +149,7 @@ gulp.task('watch', () => {
         return path.join(src, '**');
     });
 
-    gulp.watch(watches, tasks.less.concat(tasks.js));
+    gulp.watch(watches, tasks.sass.concat(tasks.js));
 });
 
-gulp.task('default', tasks.less.concat(tasks.js).concat(['watch']));
+gulp.task('default', tasks.sass.concat(tasks.js).concat(['watch']));
