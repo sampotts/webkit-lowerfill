@@ -1,6 +1,6 @@
 {
     "name": "webkit-lowerfill",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A polyfill for lower fill on `<input type='range'>` in webkit",
     "main": "dist/webkit-lowerfill.js",
     "dependencies": {},
